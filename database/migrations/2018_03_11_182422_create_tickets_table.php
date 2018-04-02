@@ -15,10 +15,12 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
             $table->string('title');
             $table->text('description');
-            $table->enum('type', ['feature, bug']);
+            $table->unsignedInteger('type_id');
+            $table->foreign('type_id')->references('id')->on('ticket_types');
+            $table->unsignedInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('ticket_statuses');
             $table->timestamps();
         });
     }

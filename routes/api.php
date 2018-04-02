@@ -13,3 +13,9 @@ Route::get('/user', function (){
        ]
     ];
 });
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::resource('/tickets', 'TicketController',[
+        'expect' => ['create, show, edit, delete'],
+    ]);
+});
